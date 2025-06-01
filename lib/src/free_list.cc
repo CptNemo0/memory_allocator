@@ -110,7 +110,7 @@ namespace allocator
 		return Merge(head, second);
 	}
 
-	void free_list::print_list() const
+	void free_list::PrintList() const
 	{
 		std::cout << "Free List Start\n";
 		free_list_node* current = head_;
@@ -150,6 +150,13 @@ namespace allocator
 				current = current->next; // Move to the next node
 			}
 		}
+	}
+
+	free_list& free_list::operator=(free_list&& other) noexcept
+	{
+		capacity_ = std::exchange(other.capacity_, 0);
+		head_     =	std::exchange(other.head_, nullptr);
+		data_     =	std::exchange(other.data_, nullptr);
 	}
 
 	void* free_list::Allocate(const std::size_t bytes)
@@ -201,7 +208,7 @@ namespace allocator
 		}
 
 		std::memset(return_value, 0, bytes);
-		print_list();
+		PrintList();
 		return return_value;
 	}
 
@@ -234,7 +241,7 @@ namespace allocator
 		head_ = MergeSort(head_); // Sort the free list to ensure adjacent blocks are next to each other
 
 		Coalesce();
-		print_list();
+		PrintList();
 		return;
 	}
 }
