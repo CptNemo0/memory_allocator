@@ -37,7 +37,7 @@ namespace allocator
 		free_list(const free_list&) = delete;
 		free_list& operator=(const free_list&) = delete;
 
-		free_list(free_list&& other) noexcept : capacity_(other.capacity_), head_(std::move(other.head_)), data_(std::move(other.data_)) {};
+		free_list(free_list&& other) noexcept : capacity_(other.capacity_), head_(other.head_), data_(other.data_) {};
 		free_list& operator=(free_list&&) noexcept;
 
 		vAddress Allocate(const std::size_t bytes);
