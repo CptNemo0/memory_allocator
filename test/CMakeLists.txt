@@ -1,0 +1,3 @@
+add_executable(allocator_test main.cc)
+target_include_directories(allocator_test PUBLIC include)
+target_compile_features(allocator_test PUBLIC cxx_std_23)
